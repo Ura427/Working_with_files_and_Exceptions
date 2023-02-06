@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Working_with_files_and_Exceptions
 {
@@ -11,141 +8,76 @@ namespace Working_with_files_and_Exceptions
     {
         static void Main(string[] args)
         {
-            string input = default;
-            string nameOfFile = default;
-            string fileLocation = default; //Should have possibility to be changed permanently
+            string input;
+            string fileLocation = @"D:\test.txt";
             string data;
+            string option;
+            bool append = true;
+            StreamWriter writer;
 
+            while (true)
+            {
+                //Available options of working with file
+                Console.WriteLine(new string('*', 30));
+                Console.WriteLine("Choose available option");
+                Console.WriteLine("1 => Change Text");
+                Console.WriteLine("2 => Add text to file");
+                Console.WriteLine("3 => Delete text");
+                Console.WriteLine("4 => Display text");
+                Console.WriteLine("5 => Show file location");
+                Console.WriteLine("6 => Terminate the program");
 
-            //StreamWriter writer = new StreamWriter(@"D:\test.txt");
-            StreamReader reader = new StreamReader(@"D:\test.txt");
+                option = Console.ReadLine();
 
-            data = File.ReadAllText(@"D:\test.txt");
-            //data = reader.ReadLine();
-            //while(data != null)
-            //{
-            //    data += reader.ReadLine();
-            //}
+                switch (option)
+                {
+                    case "1":
+                        //Change Text
+                        append = false;
+                        writer = new StreamWriter(fileLocation, append);
+                        Console.WriteLine("Input text: ");
+                        input = Console.ReadLine();
+                        writer.WriteLine(input);
+                        append = true;
+                        writer.Close();
+                        break;
+                    case "2":
+                        //Add text to existing
+                        writer = new StreamWriter(fileLocation, append);
+                        Console.WriteLine("Input q to quit");
+                        while (true)
+                        {
+                            input = Console.ReadLine();
+                            if (input == "q")
+                                break;
+                            writer.WriteLine(input);
+                        }
+                        writer.Close();
+                        break;
+                    case "3":
+                        //Delete text
+                        append = false;
+                        writer = new StreamWriter(fileLocation, append);
+                        writer.WriteLine();
+                        append = true;
+                        writer.Close();
+                        break;
+                    case "4":
+                        //Display text
+                        data = File.ReadAllText(fileLocation);
+                        Console.WriteLine(data);
+                        break;
+                    case "5":
+                        Console.WriteLine($"File location: {fileLocation}");
+                        break;
+                    case "6":
+                        return;
+                    default:
+                        Console.WriteLine("Maybe this option will be added in the next update, but currently it's unavailable");
+                        break;
+                }
 
-            Console.WriteLine(data);
-            Console.ReadLine();
-
-            //while (input != "quit")
-            //{
-
-
-            //    //Available options working with file
-
-            //    //1.Change Text
-
-            //StreamWriter writer = new StreamWriter(@"D:\test.txt");
-
-            //Console.WriteLine("Input text: ");
-            //input = Console.ReadLine();
-            //writer.WriteLine(input);
-
-            //writer.Close();
-
-            //    //2.Add text to existing
-            //StreamWriter writer = new StreamWriter(@"D:\test.txt", true);
-
-            //writer.WriteLine("Does it work?");
-            //writer.Write("And this?2");
-            //writer.Close();
-            //    //3.Delete text
-            //StreamWriter writer = new StreamWriter(@"D:\test.txt");
-            //writer.WriteLine();
-            //writer.Close();
-            //    //4.Search for specific word
-            //    //5.Replace words
-            //    //6.Insert words
-            //    //7.Display text
-            //try
-            //{
-            //    StreamReader reader = new StreamReader(@"D:\test.txt");
-            //    data = reader.ReadLine();
-
-            //    while (data != null)
-            //    {
-            //        Console.WriteLine(data);
-            //        data = reader.ReadLine();
-            //    }
-
-            //    Console.ReadLine();
-
-            //}
-            //catch
-            //{
-            //    Console.WriteLine("Something bad happened");
-            //}
-            //} string input = default;
-            string nameOfFile = default;
-            string fileLocation = default; //Should have possibility to be changed permanently
-            string data;
-
-
-            //StreamWriter writer = new StreamWriter(@"D:\test.txt");
-            StreamReader reader = new StreamReader(@"D:\test.txt");
-
-            data = File.ReadAllText(@"D:\test.txt");
-            //data = reader.ReadLine();
-            //while(data != null)
-            //{
-            //    data += reader.ReadLine();
-            //}
-
-            Console.WriteLine(data);
-            Console.ReadLine();
-
-            //while (input != "quit")
-            //{
-
-
-            //    //Available options working with file
-
-            //    //1.Change Text
-
-            //StreamWriter writer = new StreamWriter(@"D:\test.txt");
-
-            //Console.WriteLine("Input text: ");
-            //input = Console.ReadLine();
-            //writer.WriteLine(input);
-
-            //writer.Close();
-
-            //    //2.Add text to existing
-            //StreamWriter writer = new StreamWriter(@"D:\test.txt", true);
-
-            //writer.WriteLine("Does it work?");
-            //writer.Write("And this?2");
-            //writer.Close();
-            //    //3.Delete text
-            //StreamWriter writer = new StreamWriter(@"D:\test.txt");
-            //writer.WriteLine();
-            //writer.Close();
-            //    //4.Search for specific word
-            //    //5.Replace words
-            //    //6.Insert words
-            //    //7.Display text
-            //try
-            //{
-            //    StreamReader reader = new StreamReader(@"D:\test.txt");
-            //    data = reader.ReadLine();
-
-            //    while (data != null)
-            //    {
-            //        Console.WriteLine(data);
-            //        data = reader.ReadLine();
-            //    }
-
-            //    Console.ReadLine();
-
-            //}
-            //catch
-            //{
-            //    Console.WriteLine("Something bad happened");
-            //}
-            //}
+            }
         }
     }
 }
